@@ -6,7 +6,7 @@
 /*   By: zadrien <zadrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 19:33:30 by zadrien           #+#    #+#             */
-/*   Updated: 2017/03/17 19:36:33 by zadrien          ###   ########.fr       */
+/*   Updated: 2017/03/27 13:39:34 by zadrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ int		ft_checkbin(DIR *dir, char *cmd)
 	struct dirent *dirp;
 
 	while ((dirp = readdir(dir)))
-		if (ft_strcmp(dirp->d_name, cmd) == 0)
-			return (1);
+		if (ft_strcmp(cmd, ".") != 0)
+			if (ft_strcmp(dirp->d_name, cmd) == 0)
+				return (1);
 	return (0);
 }
 

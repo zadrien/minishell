@@ -6,7 +6,7 @@
 /*   By: zadrien <zadrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/19 16:45:22 by zadrien           #+#    #+#             */
-/*   Updated: 2017/03/25 15:58:02 by zadrien          ###   ########.fr       */
+/*   Updated: 2017/03/27 12:20:57 by zadrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <dirent.h>
 # include <signal.h>
 # include "../libft/libft.h"
+# define PATH_MAX 2048
 # define PATH "/Users/zadrien/.brew/bin:/usr/bin:/bin:/usr/sbin:"
 # define PATH2 "/sbin:/usr/local/bin:/usr/local/munki:/Library/TeX/texbin"
 

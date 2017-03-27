@@ -6,7 +6,7 @@
 /*   By: zadrien <zadrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 12:02:53 by zadrien           #+#    #+#             */
-/*   Updated: 2017/03/17 19:34:50 by zadrien          ###   ########.fr       */
+/*   Updated: 2017/03/27 13:40:34 by zadrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ void	exec_1case(t_env **env, char **tab)
 		ft_freetab(newenv);
 	}
 	else
-		ft_errormsg(NULL, tab[0], ": Command not found.");
+		ft_errormsg("minishell: ", tab[0], ": Command not found.");
 	ft_strdel(&npath);
 }
 
 void	binary_finder(t_env **env, char **cmd, char **path)
 {
-	if (cmd[0][0] == '.' || cmd[0][0] == '/')
+	if (ft_strncmp(cmd[0], "./", 2) == 0)
 		exec_1case(env, cmd);
 	else
 		exec_cmd(cmd, path, env);

@@ -6,7 +6,7 @@
 /*   By: zadrien <zadrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/10 18:36:17 by zadrien           #+#    #+#             */
-/*   Updated: 2017/03/27 13:40:13 by zadrien          ###   ########.fr       */
+/*   Updated: 2017/03/30 13:17:05 by zadrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ char	*ft_findbinary(char **env, char *cmd)
 			{
 				bin = create_path(env[i], cmd);
 				closedir(dir);
-				return (bin);
+				if (isexec(bin) == 1)
+					return (bin);
+				free(bin);
+				return (NULL);
 			}
 			closedir(dir);
 		}

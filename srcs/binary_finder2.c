@@ -6,11 +6,22 @@
 /*   By: zadrien <zadrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 12:02:53 by zadrien           #+#    #+#             */
-/*   Updated: 2017/03/27 13:40:34 by zadrien          ###   ########.fr       */
+/*   Updated: 2017/03/30 13:18:00 by zadrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int		isexec(char *path)
+{
+	struct stat buf;
+
+	if (lstat(path, &buf) == -1)
+		return (0);
+	if ((buf.st_mode & S_IXUSR))
+		return (1);
+	return (0);
+}
 
 char	*path_1case(char *cmd)
 {
@@ -23,7 +34,8 @@ char	*path_1case(char *cmd)
 		if (cmd[i] == '/')
 			index = i;
 	i = -1;
-	ncmd = ft_strnew(index + 1);
+	if (!(ncmd = ft_strnew(index + 1)))
+		return (NULL);
 	while (++i <= index)
 		ncmd[i] = cmd[i];
 	return (ncmd);
@@ -36,7 +48,7 @@ void	exec_1case(t_env **env, char **tab)
 
 	if (!(npath = path_1case(tab[0])))
 		return ;
-	if (find_bin(npath, (ft_strrchr(tab[0], '/') + 1)) == 1)
+	if (find_bin(npath, (ft_strrchr(tab[0], '/') + 1), tab[0]) == 1)
 	{
 		newenv = sh_lvl(env, tab[0]);
 		time_4_magic(NULL, tab, newenv);

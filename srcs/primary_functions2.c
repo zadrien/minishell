@@ -6,7 +6,7 @@
 /*   By: zadrien <zadrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 19:33:30 by zadrien           #+#    #+#             */
-/*   Updated: 2017/03/27 13:39:34 by zadrien          ###   ########.fr       */
+/*   Updated: 2017/03/30 13:18:46 by zadrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,14 @@ int		ft_checkbin(DIR *dir, char *cmd)
 	struct dirent *dirp;
 
 	while ((dirp = readdir(dir)))
-		if (ft_strcmp(cmd, ".") != 0)
+		if (ft_strcmp(dirp->d_name, ".") != 0 &&
+			ft_strcmp(dirp->d_name, "..") != 0)
 			if (ft_strcmp(dirp->d_name, cmd) == 0)
 				return (1);
 	return (0);
 }
 
-int		find_bin(char *path, char *file)
+int		find_bin(char *path, char *file, char *r_path)
 {
 	DIR				*dir;
 	struct dirent	*dirp;
@@ -42,12 +43,18 @@ int		find_bin(char *path, char *file)
 	if ((dir = opendir(path)))
 	{
 		while ((dirp = readdir(dir)))
-			if (ft_strcmp(dirp->d_name, file) == 0)
-			{
-				closedir(dir);
-				return (1);
-			}
-		closedir(dir);
+		{
+			if (ft_strcmp(dirp->d_name, ".") != 0 &&
+				ft_strcmp(dirp->d_name, "..") != 0)
+				if (ft_strcmp(dirp->d_name, file) == 0)
+				{
+					closedir(dir);
+					if (isexec(r_path) == 1)
+						return (1);
+					return (0);
+				}
+			closedir(dir);
+		}
 	}
 	return (0);
 }

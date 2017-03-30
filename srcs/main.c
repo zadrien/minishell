@@ -6,7 +6,7 @@
 /*   By: zadrien <zadrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/19 16:45:02 by zadrien           #+#    #+#             */
-/*   Updated: 2017/03/18 18:01:18 by zadrien          ###   ########.fr       */
+/*   Updated: 2017/03/30 13:06:49 by zadrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ char	**ft_output(t_env **env, char **path)
 		ft_putendl("exit");
 		ft_strdel(&line);
 		ft_exit(env, NULL, path);
+		return (NULL);
 	}
+	else if (i == -1)
+		ft_exit(env, NULL, path);
 	return (NULL);
 }
 

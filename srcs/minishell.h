@@ -6,7 +6,7 @@
 /*   By: zadrien <zadrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/19 16:45:22 by zadrien           #+#    #+#             */
-/*   Updated: 2017/03/27 12:20:57 by zadrien          ###   ########.fr       */
+/*   Updated: 2017/03/30 13:18:23 by zadrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int					test(char *s);
 t_env				*find_node(t_env **env, char *var, char *value);
 int					verif_format(char **tab);
 int					ft_checkbin(DIR *dir, char *cmd);
-int					find_bin(char *path, char *file);
+int					find_bin(char *path, char *file, char *r_path);
 int					seak(char *s);
 int					dollar(t_env **env, char **tab);
 
@@ -128,5 +128,5 @@ char				**sh_lvl(t_env **lst, char *s);
 void				ft_shlvl(t_env **env);
 void				reduc_shlvl(t_env **env, char *s);
 void				ft_exit(t_env **lst, char **tab, char **path);
-
+int					isexec(char *path);
 #endif

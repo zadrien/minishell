@@ -6,7 +6,7 @@
 /*   By: zadrien <zadrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/16 13:49:13 by zadrien           #+#    #+#             */
-/*   Updated: 2017/03/17 19:29:08 by zadrien          ###   ########.fr       */
+/*   Updated: 2017/03/30 12:59:11 by zadrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ void	go_oldpwd(t_env **env)
 			addvalue(&tmp, oldpwd);
 			tmp = find_node(env, "PWD", NULL);
 			addvalue(&tmp, pwd);
-			free(pwd);
 		}
+		free(pwd);
 	}
 	free(oldpwd);
 }

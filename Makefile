@@ -5,54 +5,73 @@
 #                                                     +:+ +:+         +:+      #
 #    By: zadrien <zadrien@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2016/11/26 20:45:05 by zadrien           #+#    #+#              #
-#    Updated: 2017/03/17 19:37:05 by zadrien          ###   ########.fr        #
+#    Created: 2017/05/02 18:16:06 by zadrien           #+#    #+#              #
+#    Updated: 2017/11/06 12:42:31 by zadrien          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-.PHONY: make all clean fclean re
+.PHONY:			all clean fclean name re
 
-NAME = minishell
+CC=				gcc
 
-LIB = -L libft/ -lft
+NAME=			minishell
 
-LIBFT = libft/libft.a
+CFLAGS=			-Wall -Werror -Wextra
 
-C_DIR = srcs/
+CPATH=			srcs/
 
-SRCS = main.c main2.c env.c echo.c exit.c unsetenv.c setenv.c cd1.c cd2.c	\
-		binary_finder1.c binary_finder2.c listing_env.c primary_functions.c	\
-		sh_level.c primary_functions2.c	\
+OPATH=			obj/
 
-SRC = $(addprefix $(C_DIR), $(SRCS))
+HPATH=			includes/ libft/
 
-OBJ = $(SRCS:.c=.o)
+INC=			$(addprefix -I , $(HPATH))
 
-INC = -I includes -I libft/
+CFILES= 		main.c	\
+				main2.c	\
+				binary_finder1.c	\
+				binary_finder2.c	\
+				cd1.c	\
+				cd2.c	\
+				echo.c	\
+				env.c	\
+				exit.c	\
+				listing_env.c	\
+				primary_functions.c	\
+				primary_functions2.c	\
+				setenv.c	\
+				sh_level.c	\
+				unsetenv.c	\
 
-all : $(NAME)
 
-$(NAME): $(OBJ) $(LIBFT)
-	@gcc -Wall -Wextra -Werror $^ -o $@ $(LIB)
+OFILES=			$(CFILES:.c=.o)
 
-$(LIBFT):
-	@make -C libft/
-	@echo "Compilation Minishell: DONE"
+HFILES=			includes/minishell.h \
+				libft/libft.h	\
 
-$(OBJ) : $(SRC)
-	@echo "Compilation Minishell: In progress"
-	@gcc -c -Wall -Wextra -Werror $^ $(INC)
+OBJ=			$(addprefix $(OPATH), $(OFILES))
 
-clean :
-	@make clean -C libft/
-	@echo "Suppression Objet LIBFT : OK"
-	@rm -f $(OBJ)
-	@echo "Suppression Objet SRCS : OK"
 
-fclean : clean
-	@rm -f $(LIBFT)
-	@echo "Suppression libft.a : OK"
-	@rm -f $(NAME)
-	@echo "Suppression (executable) minishell : OK"
+all: $(NAME)
 
-re : fclean all
+$(NAME): $(OBJ)
+	make -C libft
+	$(CC) $(CFLAGS) $(OBJ) libft/libft.a -o $(NAME)
+
+$(OPATH)%.o: $(CPATH)%.c $(HFILES)
+	@mkdir -p $(OPATH)/
+	$(CC) $(CFLAGS)  $(INC) $< -c -o $@
+
+clean:
+	make -C libft clean
+	rm -rf $(OBJ)
+
+fclean: clean
+	make -C libft fclean
+	rm -rf $(NAME)
+	rm -rf $(OPATH)
+
+re: fclean all
+
+norme:
+	@norminette srcs/**/**.[ch]
+	@norminette libft/*.[ch]
